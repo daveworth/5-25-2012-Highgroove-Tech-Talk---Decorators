@@ -1,0 +1,46 @@
+head
+  title="Down with Helpers! Up with Decorators!"
+  meta name="description" content="Down with Helpers! Up with Decorators!"
+  meta name="author"      content="David Worth - dave@highgroove.com"
+  meta name="viewport"    content="width=1024, user-scalable=no"
+
+  link rel="stylesheet" href="core/deck.core.css"
+  link rel="stylesheet" href="dave.css"
+  link rel="stylesheet" href="extensions/status/deck.status.css"
+  link rel="stylesheet" href="themes/style/swiss.css"
+  link rel="stylesheet" href="themes/transition/horizontal-slide.css"
+
+  script src="js/modernizr.custom.js"
+  script src="js/jquery-1.7.2.min.js"
+  script src="core/deck.core.js"
+  script src="extensions/status/deck.status.js"
+  javascript:
+    $(function() { $.deck('.slide'); });
+
+body.deck-container
+
+  section.slide
+    h2 Down with Helpers!  Up with Decorators!
+    h3 Why helpers are great but decorators are even nicer!
+    br
+    h4 David Worth - dave@highgroove.com
+    img.hglogo src="highgroove.png" alt="Highgroove Studios"
+
+  section.slide
+
+  section.slide
+    h2 How do I use it?
+
+  section.slide
+    h2 References
+    ul
+      li
+        | More Info
+        ul
+          li
+            a href="https://github.com/jcasimir/draper" Draper on Github
+
+p.deck-status
+  span.deck-status-current
+  |  /
+  span.deck-status-total
