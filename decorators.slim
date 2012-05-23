@@ -27,9 +27,38 @@ body.deck-container
     img.hglogo src="highgroove.png" alt="Highgroove Studios"
 
   section.slide
+    h2 Helpers are great
+    h3 They move business logic out of and views into a (hopefully) testable unit
+    h4 _example with test_
+
+  section.slide
+    h2 What's wrong with helpers?
+    h3 Flat namespaces lead to collisions
+    h4 _example_
+
+  section.slide
+    h2 What is the Decorator Pattern?
+    h3 Canonical coffee overview
+
+  section.slide
+    h2 Decorators add namespaces to helpers! WIN!
+
+  section.slide
+    h3 OK... so coffee is great, how would I use decorators in a Rails app?
+    h4 DRAPER!
 
   section.slide
     h2 How do I use it?
+    h3 _ported helper to decorator example_
+
+  section.slide
+    h3 How does it work?
+    h4 Proxy objects of AREL proxy objects
+    h4 show ObjectDecorator#find
+
+  section.slide
+    h3 Caveats
+    h4 You sometimes have to write a wrapper to put a decorator on a collection
 
   section.slide
     h2 References
