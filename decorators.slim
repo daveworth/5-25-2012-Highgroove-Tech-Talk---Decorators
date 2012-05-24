@@ -10,8 +10,8 @@ head
   link rel="stylesheet" href="themes/style/swiss.css"
   link rel="stylesheet" href="themes/transition/horizontal-slide.css"
 
-  script src="js/modernizr.custom.js"
   script src="js/jquery-1.7.2.min.js"
+  script src="js/modernizr.custom.js"
   script src="core/deck.core.js"
   script src="extensions/status/deck.status.js"
   javascript:
@@ -20,41 +20,101 @@ head
 body.deck-container
 
   section.slide
-    h2 Down with Helpers!  Up with Decorators!
+    center
+      h2
+        | Down with Helpers!
+        br
+        | Up with Decorators!
     h3 Why helpers are great but decorators are even nicer!
     br
     h4 David Worth - dave@highgroove.com
-    img.hglogo src="highgroove.png" alt="Highgroove Studios"
+    img.hglogo src="images/highgroove.png" alt="Highgroove Studios"
 
   section.slide
     h2 Helpers are great
-    h3 They move business logic out of and views into a (hopefully) testable unit
-    h4 _example with test_
+    h4 They move business logic out of and views into a testable unit:
+    section.slide
+      pre
+        | module SnazzyWidgetHelper
+            def snazzy_select_options
+              SnazzyWidget.all.map { |w| [w.id, w.title.chainable] }
+            end
+          end
+           
+          require 'spec_helper'
+          describe SnazzyWidgetHelper
+            it "should return an array of arrays" do
+              snazzy_select_options.should be_kind_of(Array)
+              snazzy_select_options.kind_of?(Array).all.should be_true
+            end
+          end
+
 
   section.slide
     h2 What's wrong with helpers?
-    h3 Flat namespaces lead to collisions
-    h4 _example_
+    h4 Flat namespaces lead to collisions:
+    section.slide
+      pre
+        | module WidgetsHelper
+            def widget_options
+              # get list of widget options
+              "widget options!"
+            end
+          end
+           
+          module SnazzyWidgetsHelper
+            def widget_options
+              # get list of options assignable to a user
+              "snazzy options!"
+            end
+          end
+
+  section.slide
+    h2 What's wrong with helpers? (con't)
+    pre
+      | $ script/rails c
+        Loading development environment (Rails 3.2.3)
+        1.9.3-p125 :001 > helper.widget_options
+        => "widget options!"
+    section.slide
+      h4 I had no idea what the load order for helpers was.
 
   section.slide
     h2 What is the Decorator Pattern?
-    h3 Canonical coffee overview
+    p 
+      | From the 
+      a href="http://en.wikipedia.org/wiki/Decorator_pattern" Wiki:
+      blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern"
+        p In object-oriented programming, the decorator pattern is a design pattern that allows behaviour to be added to an existing object dynamically.
+    section.slide
+      h4 Pretty much.
 
   section.slide
-    h2 Decorators add namespaces to helpers! WIN!
+    h2 OK... so coffee is great, how would I use decorators in a Rails app?
+    sectoin.slide
+    h2 Introducing!  Draper!
 
   section.slide
-    h3 OK... so coffee is great, how would I use decorators in a Rails app?
-    h4 DRAPER!
+    h2
+      | Draper adds namespaces to "helpers"!
+      br
+      | WIN!
+    section.slide
+    pre
+      | class ApplicationDecorator < Draper::Base
+        end
+        class WidgetDecorator < ApplicationDecorator
+          decorates :widget
+           
+          def widget_options
+            "widget options!"
+          end
+        end
 
   section.slide
-    h2 How do I use it?
-    h3 _ported helper to decorator example_
-
-  section.slide
-    h3 How does it work?
-    h4 Proxy objects of AREL proxy objects
-    h4 show ObjectDecorator#find
+    h2 How does it work?
+    h3 Proxy objects of AREL proxy objects
+    h3 show ObjectDecorator#find
 
   section.slide
     h3 Caveats
