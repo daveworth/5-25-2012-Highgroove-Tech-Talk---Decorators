@@ -2,3 +2,9 @@
   float: right; }
 .slide .center {
   text-align: center; }
+.deck-container {
+  width: auto;
+  max-width: 1024px;
+  max-height: 768px;
+  margin: 16px auto 24px auto;
+}

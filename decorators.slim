@@ -5,10 +5,10 @@ head
   meta name="viewport"    content="width=1024, user-scalable=no"
 
   link rel="stylesheet" href="core/deck.core.css"
-  link rel="stylesheet" href="dave.css"
   link rel="stylesheet" href="extensions/status/deck.status.css"
   link rel="stylesheet" href="themes/style/swiss.css"
   link rel="stylesheet" href="themes/transition/horizontal-slide.css"
+  link rel="stylesheet" href="dave.css"
 
   script src="js/jquery-1.7.2.min.js"
   script src="js/modernizr.custom.js"
@@ -18,126 +18,172 @@ head
     $(function() { $.deck('.slide'); });
 
 body.deck-container
-
-  section.slide
-    center
-      h2
-        | Down with Helpers!
-        br
-        | Up with Decorators!
-    h3 Why helpers are great but decorators are even nicer!
-    br
-    h4 David Worth - dave@highgroove.com
-    img.hglogo src="images/highgroove.png" alt="Highgroove Studios"
-
-  section.slide
-    h2 Helpers are great
-    h4 They move business logic out of and views into a testable unit:
+  article
     section.slide
-      pre
-        | module SnazzyWidgetHelper
-            def snazzy_select_options
-              SnazzyWidget.all.map { |w| [w.id, w.title.chainable] }
-            end
-          end
-           
-          require 'spec_helper'
-          describe SnazzyWidgetHelper
-            it "should return an array of arrays" do
-              snazzy_select_options.should be_kind_of(Array)
-              snazzy_select_options.kind_of?(Array).all.should be_true
-            end
-          end
-
-
-  section.slide
-    h2 What's wrong with helpers?
-    h4 Flat namespaces lead to collisions:
-    section.slide
-      pre
-        | module WidgetsHelper
-            def widget_options
-              # get list of widget options
-              "widget options!"
-            end
-          end
-           
-          module SnazzyWidgetsHelper
-            def widget_options
-              # get list of options assignable to a user
-              "snazzy options!"
-            end
-          end
-
-  section.slide
-    h2 What's wrong with helpers? (con't)
-    pre
-      | $ script/rails c
-        Loading development environment (Rails 3.2.3)
-        1.9.3-p125 :001 > helper.widget_options
-        => "widget options!"
-    section.slide
-      h4 I had no idea what the load order for helpers was.
-
-  section.slide
-    h2 What is the Decorator Pattern?
-    p 
-      | From the 
-      a href="http://en.wikipedia.org/wiki/Decorator_pattern" Wiki:
-      blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern"
-        p In object-oriented programming, the decorator pattern is a design pattern that allows behaviour to be added to an existing object dynamically.
-    section.slide
-      h4 Pretty much.
-
-  section.slide
-    h2 What is the Decorator Pattern? (con't)
-    h4 But it gets better:
-    section.slide
-      blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern"
-        p The decorator pattern can be used to extend (decorate) the functionality of a certain object at run-time, independently of other instances of the same class, provided some groundwork is done at design time.
-        p This is achieved by designing a new decorator class that wraps the original class. This wrapping could be achieved by the following sequence of steps:
-
-  section.slide
-    h2 OK... so coffee is great, how would I use decorators in a Rails app?
-    sectoin.slide
-    h2 Introducing!  Draper!
-
-  section.slide
-    h2
-      | Draper adds namespaces to "helpers"!
+      center
+        h2
+          | Down with Helpers!
+          br
+          | Up with Decorators!
+      h3 Why helpers are great but decorators are even nicer!
       br
-      | WIN!
+      h4 David Worth - dave@highgroove.com
+      img.hglogo src="images/highgroove.png" alt="Highgroove Studios"
+
     section.slide
-    pre
-      | class ApplicationDecorator < Draper::Base
-        end
-        class WidgetDecorator < ApplicationDecorator
-          decorates :widget
-           
-          def widget_options
-            "widget options!"
-          end
-        end
+      h2 Helpers are great
+      h4 They move business logic out of and views into a testable unit:
+      section.slide
+        script src="https://gist.github.com/b80189542a9915094702.js?file=snazzy_widgets_helper.rb"
+        /pre
+          /| module SnazzyWidgetHelper
+              /def snazzy_select_options
+                /SnazzyWidget.all.map { |w| [w.id, w.title.chainable] }
+              /end
+            /end
+             
+            /require 'spec_helper'
+            /describe SnazzyWidgetHelper do
+              /it "should return an array of arrays" do
+                /snazzy_select_options.should be_kind_of(Array)
+                /snazzy_select_options.kind_of?(Array).all.should be_true
+              /end
+            /end
 
-  section.slide
-    h2 How does it work?
-    h3 Proxy objects of AREL proxy objects
-    h3 show ObjectDecorator#find
+    section.slide
+      h2 What's wrong with helpers?
+      h4 Flat namespaces lead to collisions:
+      section.slide
+        script src="https://gist.github.com/b80189542a9915094702.js?file=helper_collision.rb"
+        /pre
+          /| module WidgetsHelper
+              /def widget_options
+                /# get list of widget options
+                /"widget options!"
+              /end
+            /end
+             
+            /module SnazzyWidgetsHelper
+              /def widget_options
+                /# get list of options assignable to a user
+                /"snazzy options!"
+              /end
+            /end
 
-  section.slide
-    h3 Caveats
-    h4 You sometimes have to write a wrapper to put a decorator on a collection
+    section.slide
+      h2 What's wrong with helpers? (con't)
+      script src="https://gist.github.com/b80189542a9915094702.js?file=helper_collision_irb_session.txt"
+      /pre
+        /| $ script/rails c
+          /Loading development environment (Rails 3.2.3)
+          /1.9.3-p125 :001 > helper.widget_options
+          /=> "widget options!"
+      section.slide
+        h4 I had no idea what the load order for helpers was.
 
-  section.slide
-    h2 References
-    ul
-      li
-        | More Info
-        ul
-          li
-            a href="https://github.com/jcasimir/draper" Draper on Github
+    section.slide
+      h2 What is the Decorator Pattern? (con't)
+      p
+        | From the 
+        a href="http://en.wikipedia.org/wiki/Decorator_pattern" Wiki:
+        blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern"
+          p In object-oriented programming, the decorator pattern is a design pattern that allows behaviour to be added to an existing object dynamically.
+      section.slide
+        h4 Pretty much.
 
-p.deck-status
-  span.deck-status-current
-  |  /
-  span.deck-status-total
+    section.slide
+      h2 What is the Decorator Pattern? (con't)
+      h4 But it gets better:
+      section.slide
+        blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern"
+          p The decorator pattern can be used to extend (decorate) the functionality of a certain object at run-time, independently of other instances of the same class, provided some groundwork is done at design time.
+
+    section.slide
+      h2 What is the Decorator Pattern? (con't)
+      h3 Neat!  But how?
+      section.slide
+        blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern"
+          p This is achieved by designing a new decorator class that wraps the original class.
+      h3.slide  Think proxy classes!
+
+    section.slide
+      h2 What is the Decorator Pattern? (con't)
+      h4 There is a wealth of OO literature on the subject...
+
+    section.slide
+      h2 Introducing Draper!
+
+    section.slide
+      h2 Draper adds namespaces to helpers!
+      section.slide
+        script src="https://gist.github.com/b80189542a9915094702.js?file=widget_decorators.rb"
+        /pre
+          /| class ApplicationDecorator < Draper::Base
+            /end
+            /class WidgetDecorator < ApplicationDecorator
+              /decorates :widget
+               
+              /def widget_options
+                /"widget options!"
+              /end
+            /end
+
+    section.slide
+      h2 How does it work?
+      h3 Proxy objects of AREL proxy objects
+      script src="https://gist.github.com/b80189542a9915094702.js?file=widget_decorator_proxy.txt"
+
+    section.slide
+      h2 It slices
+      h3 Draper handles associations gracefully too
+      section.slide
+        script src="https://gist.github.com/b80189542a9915094702.js?file=widget_decorators_with_association.rb"
+
+    section.slide
+      h2 It slices
+      h3 Draper handles associations gracefully too
+      script src="https://gist.github.com/b80189542a9915094702.js?file=widget_associations_irb_session.txt"
+
+    section.slide
+      h2 It dices
+      p Decorators are a great place to put output formatters for things like XML, JSON, CSV that may need custom formatting.
+      section.slide
+        p Putting these presentation concerns in your model should feel funny...
+
+    section.slide
+      h2 It dices
+      script src="https://gist.github.com/b80189542a9915094702.js?file=custom_API_decorator.rb"
+
+    section.slide
+      h2 It dices
+      script src="https://gist.github.com/b80189542a9915094702.js?file=API_decorator_irb_session.txt"
+      section.slide
+        h3 Note the alternative decoration syntax above.
+      section.slide
+        h5 
+          | (This idea blatantly lifted from the 
+          a href="https://github.com/jcasimir/draper#possible-decoration-methods" docs
+          | )
+
+    section.slide
+      h2 It even enforces interfaces
+      script src="https://gist.github.com/b80189542a9915094702.js?file=interface_enforcer.rb"
+
+    section.slide
+      h2 References
+      ul
+        li
+          | More Info
+          ul
+            li
+              a href="https://github.com/jcasimir/draper" Draper on Github
+            li
+              a href="http://railscasts.com/episodes/286-draper" Railscast #286 - Draper
+            li
+              a href="http://tutorials.jumpstartlab.com/topics/decorators.html" Experimenting with Draper
+              | from Jumpstart Lab
+
+  p.deck-status
+    span.deck-status-current
+    |  /
+    span.deck-status-total
