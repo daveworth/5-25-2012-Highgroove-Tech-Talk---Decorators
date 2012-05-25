@@ -6,8 +6,9 @@ head
 
   link rel="stylesheet" href="core/deck.core.css"
   link rel="stylesheet" href="extensions/status/deck.status.css"
-  link rel="stylesheet" href="themes/style/swiss.css"
-  link rel="stylesheet" href="themes/transition/horizontal-slide.css"
+  link rel="stylesheet" href="themes/style/web-2.0.css"
+  /link rel="stylesheet" href="themes/style/swiss.css"
+  /link rel="stylesheet" href="themes/transition/horizontal-slide.css"
   link rel="stylesheet" href="dave.css"
 
   script src="js/jquery-1.7.2.min.js"
@@ -17,8 +18,8 @@ head
   javascript:
     $(function() { $.deck('.slide'); });
 
-body.deck-container
-  article
+body
+  article.deck-container
     section.slide
       center
         h2
@@ -181,9 +182,12 @@ body.deck-container
               a href="http://railscasts.com/episodes/286-draper" Railscast #286 - Draper
             li
               a href="http://tutorials.jumpstartlab.com/topics/decorators.html" Experimenting with Draper
-              | from Jumpstart Lab
+              |  from Jumpstart Lab
+            li
+              a href="http://en.wikipedia.org/wiki/Decorator_pattern" Decorator Pattern
+              |  on Wikipedia
 
-  p.deck-status
-    span.deck-status-current
-    |  /
-    span.deck-status-total
+    p.deck-status
+      span.deck-status-current
+      |  /
+      span.deck-status-total
