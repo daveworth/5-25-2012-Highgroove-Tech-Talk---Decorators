@@ -1,0 +1,154 @@
+<head>
+  <title>Down with Helpers! Up with Decorators!</title>
+  <meta content="Down with Helpers! Up with Decorators!" name="description" />
+  <meta content="David Worth - dave@highgroove.com" name="author" />
+  <meta content="width=1024, user-scalable=no" name="viewport" />
+  <link href="core/deck.core.css" rel="stylesheet" />
+  <link href="extensions/status/deck.status.css" rel="stylesheet" />
+  <link href="themes/style/web-2.0.css" rel="stylesheet" />
+  <link href="dave.css" rel="stylesheet" />
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script src="js/modernizr.custom.js"></script>
+  <script src="core/deck.core.js"></script>
+  <script src="extensions/status/deck.status.js"></script>
+  <script type="text/javascript">$(function() { $.deck('.slide'); });</script>
+</head>
+<body>
+  <article class="deck-container">
+    <section class="slide">
+      <center>
+        <h2>Down with Helpers!<br />Up with Decorators!</h2>
+      </center>
+      <h3>Why helpers are great but decorators are even nicer!</h3>
+      <br />
+      <h4>David Worth - dave@highgroove.com</h4>
+      <img alt="Highgroove Studios" class="hglogo" src="images/highgroove.png" />
+    </section>
+    <section class="slide">
+      <h2>Helpers are great</h2>
+      <h4>They move business logic out of and views into a testable unit:</h4>
+      <section class="slide">
+        <script src="https://gist.github.com/b80189542a9915094702.js?file=snazzy_widgets_helper.rb"></script>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>What's wrong with helpers?</h2>
+      <h4>Flat namespaces lead to collisions:</h4>
+      <section class="slide">
+        <script src="https://gist.github.com/b80189542a9915094702.js?file=helper_collision.rb"></script>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>What's wrong with helpers? (con't)</h2>
+      <script src="https://gist.github.com/b80189542a9915094702.js?file=helper_collision_irb_session.txt"></script>
+      <section class="slide">
+        <h4>I had no idea what the load order for helpers was.</h4>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>What is the Decorator Pattern? (con't)</h2>
+      <p>From the <a href="http://en.wikipedia.org/wiki/Decorator_pattern">Wiki:</a><blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern">
+          <p>In object-oriented programming, the decorator pattern is a design pattern that allows behaviour to be added to an existing object dynamically.</p>
+        </blockquote>
+      </p>
+      <section class="slide">
+        <h4>Pretty much.</h4>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>What is the Decorator Pattern? (con't)</h2>
+      <h4>But it gets better:</h4>
+      <section class="slide">
+        <blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern">
+          <p>The decorator pattern can be used to extend (decorate) the functionality of a certain object at run-time, independently of other instances of the same class, provided some groundwork is done at design time.</p>
+        </blockquote>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>What is the Decorator Pattern? (con't)</h2>
+      <h3>Neat!  But how?</h3>
+      <section class="slide">
+        <blockquote cite="http://en.wikipedia.org/wiki/Decorator_pattern">
+          <p>This is achieved by designing a new decorator class that wraps the original class.</p>
+        </blockquote>
+      </section>
+      <h3 class="slide"> Think proxy classes!</h3>
+    </section>
+    <section class="slide">
+      <h2>What is the Decorator Pattern? (con't)</h2>
+      <h4>There is a wealth of OO literature on the subject...</h4>
+    </section>
+    <section class="slide">
+      <h2>Introducing Draper!</h2>
+    </section>
+    <section class="slide">
+      <h2>Draper adds namespaces to helpers!</h2>
+      <section class="slide">
+        <script src="https://gist.github.com/b80189542a9915094702.js?file=widget_decorators.rb"></script>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>How does it work?</h2>
+      <h3>Proxy objects of AREL proxy objects</h3>
+      <script src="https://gist.github.com/b80189542a9915094702.js?file=widget_decorator_proxy.txt"></script>
+    </section>
+    <section class="slide">
+      <h2>It slices</h2>
+      <h3>Draper handles associations gracefully too</h3>
+      <section class="slide">
+        <script src="https://gist.github.com/b80189542a9915094702.js?file=widget_decorators_with_association.rb"></script>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>It slices</h2>
+      <h3>Draper handles associations gracefully too</h3>
+      <script src="https://gist.github.com/b80189542a9915094702.js?file=widget_associations_irb_session.txt"></script>
+    </section>
+    <section class="slide">
+      <h2>It dices</h2>
+      <p>Decorators are a great place to put output formatters for things like XML, JSON, CSV that may need custom formatting.</p>
+      <section class="slide">
+        <p>Putting these presentation concerns in your model should feel funny...</p>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>It dices</h2>
+      <script src="https://gist.github.com/b80189542a9915094702.js?file=custom_API_decorator.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>It dices</h2>
+      <script src="https://gist.github.com/b80189542a9915094702.js?file=API_decorator_irb_session.txt"></script>
+      <section class="slide">
+        <h3>Note the alternative decoration syntax above.</h3>
+      </section>
+      <section class="slide">
+        <h5>(This idea blatantly lifted from the <a href="https://github.com/jcasimir/draper#possible-decoration-methods">docs</a>)</h5>
+      </section>
+    </section>
+    <section class="slide">
+      <h2>It even enforces interfaces</h2>
+      <script src="https://gist.github.com/b80189542a9915094702.js?file=interface_enforcer.rb"></script>
+    </section>
+    <section class="slide">
+      <h2>References</h2>
+      <ul>
+        <li>More Info<ul>
+            <li>
+              <a href="https://github.com/jcasimir/draper">Draper on Github</a>
+            </li>
+            <li>
+              <a href="http://railscasts.com/episodes/286-draper">Railscast #286 - Draper</a>
+            </li>
+            <li>
+              <a href="http://tutorials.jumpstartlab.com/topics/decorators.html">Experimenting with Draper</a> from Jumpstart Lab</li>
+            <li>
+              <a href="http://en.wikipedia.org/wiki/Decorator_pattern">Decorator Pattern</a> on Wikipedia</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <p class="deck-status">
+      <span class="deck-status-current"></span> /<span class="deck-status-total"></span>
+    </p>
+  </article>
+</body>
